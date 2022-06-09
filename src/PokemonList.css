@@ -1,0 +1,50 @@
+.container {
+    display: block;
+    margin: auto;
+    padding: 1%;
+}
+
+
+.item {
+    display: block;
+    background-color: whitesmoke;
+    padding: 10px;
+    margin: 1px;
+    text-align: center;
+}
+
+.list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    flex-direction: column;
+  }
+  
+.grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    flex-direction: row;
+  }
+
+.item-list {
+    flex: 100%;
+  }
+  
+.item-grid {
+    flex: 20%;
+  }
+
+  /* On screens that are 992px wide or less, go from four columns to two columns */
+  @media screen and (max-width: 992px) {
+    .item-grid {
+      flex: 30%;
+    }
+  }
+  
+  /* On screens that are 600px wide or less, make the columns stack on top of each other instead of next to each other */
+  @media screen and (max-width: 600px) {
+    .item-grid {
+        flex: 40%;
+    }
+  }
