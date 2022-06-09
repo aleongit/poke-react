@@ -20,7 +20,7 @@ export const App = () => {
   // Here we use item offsets; we could also use page offsets
   // following the API or data you're working with.
   const [itemOffset, setItemOffset] = useState(0)
-  const [itemsPerPage, setitemsPerPage] = useState(12)
+  const [itemsPerPage, ] = useState(12)
 
   //detall pokemon
   const [isDetail, setIsDetail] = useState(false)
@@ -72,7 +72,7 @@ export const App = () => {
     console.log('is detail ? ' + isDetail )
     !isDetail? fetchData() : fetchDataDetail()
 
-  }, [itemOffset, itemsPerPage, isDetail ]) 
+  }, [itemOffset, itemsPerPage, isDetail, urlPokemon ]) 
     //dependències per evitar bucle infinit per només cridar quan cal
 
   // Invoke when user click to request another page.

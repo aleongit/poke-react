@@ -28,7 +28,7 @@
   }
 
 .item-list {
-    width: 25%;
+    width: 35%;
     align-self: center;
   }
   
@@ -43,6 +43,10 @@
       flex: 30%;
       max-width: 30%;
     }
+    .item-list {
+      width: 55%;
+    }
+    
   }
   
   /* On screens that are 600px wide or less, make the columns stack on top of each other instead of next to each other */
@@ -51,8 +55,7 @@
         flex: 40%;
         max-width: 40%;
     }
-
     .item-list {
-      width: 90%;
-  }
+      width: 75%;
+    }
   }

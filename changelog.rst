@@ -1,3 +1,8 @@
+3.0.1
+=======
+
+- Depuration, fix errors
+
 3.0.0
 =======
 
