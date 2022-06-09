@@ -9,7 +9,7 @@
     display: block;
     background-color: whitesmoke;
     padding: 10px;
-    margin: 1px;
+    margin: 2px;
     text-align: center;
 }
 
@@ -23,7 +23,7 @@
 .grid {
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-start;
+    justify-content: center;
     flex-direction: row;
   }
 
@@ -33,12 +33,14 @@
   
 .item-grid {
     flex: 20%;
+    max-width: 20%;
   }
 
   /* On screens that are 992px wide or less, go from four columns to two columns */
   @media screen and (max-width: 992px) {
     .item-grid {
       flex: 30%;
+      max-width: 30%;
     }
   }
   
@@ -46,5 +48,6 @@
   @media screen and (max-width: 600px) {
     .item-grid {
         flex: 40%;
+        max-width: 40%;
     }
   }

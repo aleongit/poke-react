@@ -3,7 +3,7 @@ import React from 'react';
 
 function PokemonList(props) {
     const mode = props.mode
-    console.log(props.mode)
+    //console.log(props.mode)
 
     const pokemonListItems = props.pokemons.map((pokemon, index) => {
         return (
