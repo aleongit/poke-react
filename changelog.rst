@@ -1,3 +1,10 @@
+3.0.0
+=======
+
+- Add pokemon detail, fetch API
+- Modify styles
+- Depuration, fix errors
+
 2.0.0
 =======
 

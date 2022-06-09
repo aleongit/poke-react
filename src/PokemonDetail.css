@@ -1,0 +1,20 @@
+.name {
+    text-align: center;
+    font-size: 3em;
+    font-weight: 600;
+    text-transform: capitalize;
+    padding: 10px;
+    background-color: whitesmoke;
+    border-bottom: solid 1px #e7e7e7;
+    width: 50%;
+    margin: 30px auto 0;
+}
+
+.img {
+    display: flex;
+    justify-content: center;
+}
+
+.img img {
+    width: 300px;
+}

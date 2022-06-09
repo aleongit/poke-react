@@ -8,9 +8,7 @@ function PokemonList(props) {
     const pokemonListItems = props.pokemons.map((pokemon, index) => {
         return (
             <div key={pokemon.url} 
-                //className={ ingredient.prepared ? 'prepared' : '' }
                 className={`item ${mode ? 'item-list' : 'item-grid'}`}
-                //Add onClick event
                 onClick={ () => props.onClick(pokemon.url) }
             >
                 { pokemon.name }

@@ -28,7 +28,8 @@
   }
 
 .item-list {
-    flex: 100%;
+    width: 25%;
+    align-self: center;
   }
   
 .item-grid {
@@ -50,4 +51,8 @@
         flex: 40%;
         max-width: 40%;
     }
+
+    .item-list {
+      width: 90%;
+  }
   }
