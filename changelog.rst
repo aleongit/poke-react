@@ -1,3 +1,10 @@
+4.0.0
+=======
+
+- Add React Router
+- Add routes '/' and 'detail/:id'
+- Feat remember state (pag, mode), useLocation and location.state
+
 3.0.2
 =======
 

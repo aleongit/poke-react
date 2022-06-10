@@ -1,10 +1,16 @@
 import './App.css'
 import React, { useState, useEffect } from "react"
+import { useLocation } from "react-router-dom";
 import ReactPaginate from 'react-paginate';
 import PokemonList from './PokemonList'
-import PokemonDetail from './PokemonDetail'
 
 export const App = () => {
+
+  //recuperar state location, el qual conserva els valors de mode i pag previs (de ruta detall)
+  const location = useLocation();
+  //console.log('location / ' + location.state.mode)
+  //console.log('location / ' + location.state.pag)
+
 
   const [pokemons, setPokemons] = useState([]) //ini array buida
   const [error, setError] = useState(undefined)
@@ -22,11 +28,6 @@ export const App = () => {
   const [itemOffset, setItemOffset] = useState(0)
   //const [itemsPerPage, ] = useState(12)
   const ITEMS_PER_PAGE = 10
-
-  //detall pokemon
-  const [isDetail, setIsDetail] = useState(false)
-  const [urlPokemon, setUrlPokemon] = useState(null)
-  const [pokemon, setPokemon] = useState()
 
   useEffect(() => {
 
@@ -56,44 +57,29 @@ export const App = () => {
       }
     }
 
-    const fetchDataDetail = async () => {
-      try {
-        const response = await fetch(urlPokemon)
-        const data = await response.json()
-        setPokemon(data)
-        console.log('fetch data pokemon')
+    fetchData();
 
-      } catch(e) {
-        setError("Alguna cosa ha anat malament :(");
-        console.log('fetch error')
-      }
-    }
-
-    //si click a pokemon, fetch a url pokemon per detall
-    console.log('is detail ? ' + isDetail )
-    !isDetail? fetchData() : fetchDataDetail()
-
-  }, [itemOffset, isDetail, urlPokemon ]) 
+  }, [itemOffset]) 
     //dependències per evitar bucle infinit per només cridar quan cal
+
+  //al modificar location, modifica estats
+  useEffect(() => {
+    if (location.state){
+    setToggleViewMode(location.state.mode)
+    setcurrentPage(location.state.pag)
+    setItemOffset((location.state.pag)*10)
+    }
+  }, [location]) 
 
   // Invoke when user click to request another page.
   const handlePageClick = (event) => {
-    const newOffset = (event.selected * ITEMS_PER_PAGE) % pokemons.length;
-    console.log(`User requested page number ${event.selected}, which is offset ${newOffset}`);
+    const newOffset = (event.selected * ITEMS_PER_PAGE) % pokemons.length
+    console.log(`User requested page number ${event.selected}, which is offset ${newOffset}`)
     //canvi item inicial, tornarà a useEffect, fetch i slice
     setcurrentPage(event.selected)
     setItemOffset(newOffset)
   }
-
-  //Create pokemonClick event listener, set url i detail per fetch a useEffect
-  function pokemonClick(index) {
-    console.log('pokemon click ' + index)
-    setUrlPokemon(index)
-    setIsDetail(true)
-    console.log('is detail en click? ' + isDetail)
-    console.log('setUrlPokemon ' + urlPokemon)
-  }
-
+  
   //test
   //console.log('currentPokemons '+ currentPokemons)
   //console.log('pageCount '+ pageCount)
@@ -109,25 +95,17 @@ export const App = () => {
 
   return (
     <div>
+
       <div className="header">
-        {pokemon?
-        <button 
-          className="button" 
-          onClick={() => {
-            setPokemon()
-            setIsDetail(false) }
-            }>Pokemons
-        </button>
-        :
+
         <button
           className="button"
           onClick={() => setToggleViewMode(!toggleViewMode)}>
           {toggleViewMode ? 'list' : 'grid'}
         </button>
-        }
+
       </div>
 
-      {!pokemon?
       <div>
         <div className="botonera">
           <ReactPaginate
@@ -145,18 +123,15 @@ export const App = () => {
             forcePage={currentPage}
           />
         </div>   
+        
         <PokemonList 
           pokemons={currentPokemons} 
-          mode={toggleViewMode} 
-          onClick={ pokemonClick } 
+          mode={toggleViewMode} //passar mode actual per prop
+          pag={currentPage} //passar pàgina actual per prop
         />
-      </div>
-      :
-        <PokemonDetail 
-        pokemon={pokemon} 
-        />
-      }
 
+      </div>
+        
     </div>
 
   );
