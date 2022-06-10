@@ -20,7 +20,8 @@ export const App = () => {
   // Here we use item offsets; we could also use page offsets
   // following the API or data you're working with.
   const [itemOffset, setItemOffset] = useState(0)
-  const [itemsPerPage, ] = useState(12)
+  //const [itemsPerPage, ] = useState(12)
+  const ITEMS_PER_PAGE = 10
 
   //detall pokemon
   const [isDetail, setIsDetail] = useState(false)
@@ -39,7 +40,7 @@ export const App = () => {
 
         //paginate
         //limits
-        const endOffset = itemOffset + itemsPerPage
+        const endOffset = itemOffset + ITEMS_PER_PAGE
         console.log(`Loading items from ${itemOffset} to ${endOffset}`)
         
         //nova array pokemons dels limits
@@ -47,7 +48,7 @@ export const App = () => {
         setCurrentPokemons(slice)
 
         //num pàgines
-        setPageCount(Math.ceil(data.results.length / itemsPerPage))
+        setPageCount(Math.ceil(data.results.length / ITEMS_PER_PAGE))
 
       } catch(e) {
         setError("Alguna cosa ha anat malament :(");
@@ -72,12 +73,12 @@ export const App = () => {
     console.log('is detail ? ' + isDetail )
     !isDetail? fetchData() : fetchDataDetail()
 
-  }, [itemOffset, itemsPerPage, isDetail, urlPokemon ]) 
+  }, [itemOffset, isDetail, urlPokemon ]) 
     //dependències per evitar bucle infinit per només cridar quan cal
 
   // Invoke when user click to request another page.
   const handlePageClick = (event) => {
-    const newOffset = (event.selected * itemsPerPage) % pokemons.length;
+    const newOffset = (event.selected * ITEMS_PER_PAGE) % pokemons.length;
     console.log(`User requested page number ${event.selected}, which is offset ${newOffset}`);
     //canvi item inicial, tornarà a useEffect, fetch i slice
     setcurrentPage(event.selected)

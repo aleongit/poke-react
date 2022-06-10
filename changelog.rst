@@ -1,3 +1,10 @@
+3.0.2
+=======
+
+- Fix grid styles, flex to grid
+- Fix itemsPerPage to ITEMS_PER_PAGE, outside state
+
+
 3.0.1
 =======
 

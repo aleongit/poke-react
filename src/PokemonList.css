@@ -13,6 +13,11 @@
     text-align: center;
 }
 
+.item:hover {
+  cursor:pointer;
+  background-color: rgb(220, 220, 220);
+}
+
 .list {
     display: flex;
     flex-wrap: wrap;
@@ -21,10 +26,11 @@
   }
   
 .grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    flex-direction: row;
+  display: grid;
+  grid-gap: 10px;
+  /*grid-template-columns: repeat(6, 100px);*/
+  /*grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));*/
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   }
 
 .item-list {
@@ -32,30 +38,28 @@
     align-self: center;
   }
   
-.item-grid {
-    flex: 20%;
-    max-width: 20%;
-  }
 
   /* On screens that are 992px wide or less, go from four columns to two columns */
   @media screen and (max-width: 992px) {
-    .item-grid {
-      flex: 30%;
-      max-width: 30%;
-    }
+
     .item-list {
       width: 55%;
     }
+
+    .grid {
+      grid-template-columns: 1fr 1fr 1fr;
+      }
     
   }
   
   /* On screens that are 600px wide or less, make the columns stack on top of each other instead of next to each other */
   @media screen and (max-width: 600px) {
-    .item-grid {
-        flex: 40%;
-        max-width: 40%;
-    }
+
     .item-list {
       width: 75%;
     }
+
+    .grid {
+      grid-template-columns: 1fr 1fr;
+      }
   }
