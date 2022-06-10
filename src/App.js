@@ -6,11 +6,13 @@ import PokemonList from './PokemonList'
 
 export const App = () => {
 
-  //recuperar state location, el qual conserva els valors de mode i pag previs (de ruta detall)
+  //recuperar state location, el qual conserva els valors de 'mode' i 'pag' previs (ruta detall)
   const location = useLocation();
-  //console.log('location / ' + location.state.mode)
-  //console.log('location / ' + location.state.pag)
 
+  if (location.state) {
+  console.log('location / ' + location.state.mode)
+  console.log('location / ' + location.state.pag)
+  }
 
   const [pokemons, setPokemons] = useState([]) //ini array buida
   const [error, setError] = useState(undefined)
@@ -26,6 +28,7 @@ export const App = () => {
   // Here we use item offsets; we could also use page offsets
   // following the API or data you're working with.
   const [itemOffset, setItemOffset] = useState(0)
+  
   //const [itemsPerPage, ] = useState(12)
   const ITEMS_PER_PAGE = 10
 
@@ -59,8 +62,7 @@ export const App = () => {
 
     fetchData();
 
-  }, [itemOffset]) 
-    //dependències per evitar bucle infinit per només cridar quan cal
+  }, [itemOffset]) //dependències, per evitar bucle infinit per només cridar quan cal
 
   //al modificar location, modifica estats
   useEffect(() => {
@@ -120,7 +122,7 @@ export const App = () => {
             containerClassName={"pagination"}
             subContainerClassName={"pages pagination"}
             activeClassName={"active"}
-            forcePage={currentPage}
+            forcePage={currentPage} //es posiciona a pàgina activa
           />
         </div>   
         

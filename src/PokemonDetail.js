@@ -4,7 +4,7 @@ import { useParams, Link, useLocation } from "react-router-dom";
 
 function PokemonDetail() {
 
-    //recuparem i passem location.state a '/'
+    //recuperem i passem location.state a '/'
     const location = useLocation();
     console.log('location detail ' + location.state.mode)
     console.log('location detail ' + location.state.pag)
@@ -12,7 +12,7 @@ function PokemonDetail() {
     const {id} = useParams()
     console.log(id)
 
-     //detall pokemon
+     //inicialitzar obj pokemon, sinó undefined a html quan encara no té obj
     const [pokemon, setPokemon] = useState(
             {
             name: "",
