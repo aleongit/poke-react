@@ -15,7 +15,7 @@ function PokemonList(props) {
             <Link
                 to={`/detail/${id}`}
                 key={id}
-                state={ {mode: mode, pag: pag}} //per recuperar després amb location.state
+                /*state={ {mode: mode, pag: pag}}*/ //per recuperar després amb location.state
                 className={`item ${mode ? 'item-list' : 'item-grid'}`}
             >
                 { pokemon.name }

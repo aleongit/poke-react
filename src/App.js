@@ -1,18 +1,27 @@
 import './App.css'
 import React, { useState, useEffect } from "react"
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import ReactPaginate from 'react-paginate';
 import PokemonList from './PokemonList'
 
 export const App = () => {
 
   //recuperar state location, el qual conserva els valors de 'mode' i 'pag' previs (ruta detall)
-  const location = useLocation();
-
+  //const location = useLocation();
+  /*
   if (location.state) {
   console.log('location / ' + location.state.mode)
   console.log('location / ' + location.state.pag)
   }
+  */
+
+  //hook navegació react-router
+  const navigate = useNavigate();
+  
+  //per agafar paràmetres URL
+  const [searchParams] = useSearchParams();
+  console.log(searchParams.get('page')); // 'page'
+  console.log(searchParams.get('mode')); // 'mode'
 
   const [pokemons, setPokemons] = useState([]) //ini array buida
   const [error, setError] = useState(undefined)
@@ -64,24 +73,53 @@ export const App = () => {
 
   }, [itemOffset]) //dependències, per evitar bucle infinit per només cridar quan cal
 
-  //al modificar location, modifica estats
+  //al modificar searchParams, modifiquem estat
   useEffect(() => {
-    if (location.state){
-    setToggleViewMode(location.state.mode)
-    setcurrentPage(location.state.pag)
-    setItemOffset((location.state.pag)*10)
+    /*
+    if (params){
+    setToggleViewMode(mode)
+    setcurrentPage(page)
+    setItemOffset((page)*10)
     }
-  }, [location]) 
+    */
+    console.log('canvi search params!')
+    const page = searchParams.get('page')
+    const mode = searchParams.get('mode')
+    console.log('page ' + page + ' type ' + typeof(page) )
+    console.log('mode ' + mode + ' type ' + typeof(mode) )
 
+    if (parseInt(page)>=0 && parseInt(page) <= 10 ) {
+      setcurrentPage(parseInt(page))
+      setItemOffset(parseInt(page)*10)
+    } else {
+      navigate("/")
+    }
+
+    if (mode === 'true') {
+      setToggleViewMode(true) 
+    } else if (mode === 'false') {
+      setToggleViewMode(false) 
+    } else {
+        navigate("/")
+    }
+
+  }, [searchParams]) 
+  
+  
   // Invoke when user click to request another page.
   const handlePageClick = (event) => {
-    const newOffset = (event.selected * ITEMS_PER_PAGE) % pokemons.length
+    
+    const page = event.selected
+    
+    const newOffset = (page * ITEMS_PER_PAGE) % pokemons.length
     console.log(`User requested page number ${event.selected}, which is offset ${newOffset}`)
     //canvi item inicial, tornarà a useEffect, fetch i slice
-    setcurrentPage(event.selected)
+    setcurrentPage(page)
     setItemOffset(newOffset)
+    //navigate(`/page=${page}`, { state: { newId: id } })
+    navigate(`?page=${page}&mode=${toggleViewMode}`)
   }
-  
+ 
   //test
   //console.log('currentPokemons '+ currentPokemons)
   //console.log('pageCount '+ pageCount)
@@ -102,9 +140,14 @@ export const App = () => {
 
         <button
           className="button"
-          onClick={() => setToggleViewMode(!toggleViewMode)}>
+          onClick={() => {
+            setToggleViewMode(!toggleViewMode)
+            navigate(`?page=${currentPage}&mode=${!toggleViewMode}`)
+          }
+          }>
           {toggleViewMode ? 'list' : 'grid'}
         </button>
+          {/*toggleViewMode ? 'true' : 'false'*/}
 
       </div>
 

@@ -1,13 +1,18 @@
 import './PokemonDetail.css'
 import React, { useState, useEffect } from "react"
-import { useParams, Link, useLocation } from "react-router-dom";
+import { useParams, Link, useLocation, useNavigate } from "react-router-dom";
 
 function PokemonDetail() {
 
     //recuperem i passem location.state a '/'
+    /*
     const location = useLocation();
     console.log('location detail ' + location.state.mode)
     console.log('location detail ' + location.state.pag)
+    */
+
+    //usar navegació react-router
+    const navigate = useNavigate();
 
     const {id} = useParams()
     console.log(id)
@@ -43,11 +48,17 @@ function PokemonDetail() {
         <div>
 
             <div className="header">
+                {/*
                 <Link className="button"
                     to='/'
                     state={location.state}>
                     Pokemons
                 </Link>
+            */}
+            <button className="button" onClick={ () => navigate(-1) }>
+                Pokemons
+            </button>
+
             </div>
 
             <div className="name"> {pokemon.name} !</div>

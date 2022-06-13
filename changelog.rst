@@ -1,3 +1,8 @@
+5.0.0
+=======
+
+- URL parameters = state, change useLocation -> searchParams
+
 4.0.1
 =======
 
